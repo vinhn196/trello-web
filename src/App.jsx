@@ -7,19 +7,33 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-
+import { useColorScheme } from '@mui/material/styles'
 
 import './App.css'
 
+function ModeToggle() {
+  const { mode, setMode } = useColorScheme()
+  return (
+    <Button
+      onClick={() => {
+        setMode(mode === 'light' ? 'dark' : 'light')
+      }}
+    >
+      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+    </Button>
+  )
+}
+
+
 function App() {
   const [age, setAge] = React.useState('')
-
   const handleChange = (event) => {
     setAge(event.target.value)
   }
-
   return (
     <>
+      <ModeToggle />
+      <hr />
       <div>vinhnguyen</div>
       <Typography variant="body2" color='text.secondary'>Test</Typography>
       <Button>Text</Button>
