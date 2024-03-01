@@ -23,6 +23,7 @@ function App() {
       <div>vinhnguyen</div>
       <Typography variant="body2" color='text.secondary'>Test</Typography>
       <Button>Text</Button>
+      <Button variant='contained'color='success'>Text123</Button>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Age</InputLabel>
