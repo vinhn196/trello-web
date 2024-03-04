@@ -1,12 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from 'react'
+import { Container } from '@mui/material'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import { useColorScheme } from '@mui/material/styles'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
@@ -14,6 +13,7 @@ import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
 // import useMediaQuery from '@mui/material/useMediaQuery'
 
 import './App.css'
+
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme()
@@ -23,8 +23,8 @@ function ModeSelect() {
   }
 
   return (
-    <Box sx={{ minWidth: 120, marginTop:'10px' }}>
-      <FormControl fullWidth >
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth sx={{ marginTop:'3px' }}>
         <InputLabel id="light-dark-select-mode">Mode</InputLabel>
         <Select
           labelId="light-dark-select-mode"
@@ -33,7 +33,10 @@ function ModeSelect() {
           label="Mode"
           onChange={handleChange}
           sx={{
-            width: '120px'
+            width: '120px',
+            '& .MuiOutlinedInput-input': {
+              padding:'8px 5px'
+            }
             // '& .MuiOutlinedInput-input': {
             //   display: 'flex',
             //   alignItems: 'center',
@@ -67,18 +70,37 @@ function ModeSelect() {
 
 
 function App() {
-  // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  // const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)')
 
   return (
-    <>
-      <ModeSelect />
-      <hr />
-      <div>vinhnguyen</div>
-      <Typography variant="body2" color='text.secondary'>Test</Typography>
-      <Button>Text</Button>
-      <Button variant='contained'color='success'>Text123</Button>
-    </>
+    <Container disableGutters maxWidth={false} sx={{ height:'100vh', backgroundColor:'primary.main' }}>
+      <Box sx={{
+        backgroundColor: 'primary.light',
+        height: (theme) => theme.trello.appBarHeight,
+        width: '100%',
+        display: 'flex',
+        alignItems:'center'
+      }}>
+        <ModeSelect />
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.dark',
+        height: (theme) => theme.trello.boardBarHeight,
+        width: '100%',
+        display: 'flex',
+        alignItems:'center'
+      }}>
+        Board Bar
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.main',
+        height: (theme) => `calc(100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight})`,
+        width: '100%',
+        display: 'flex',
+        alignItems:'center'
+      }}>
+        Board Content
+      </Box>
+    </Container>
   )
 }
 
