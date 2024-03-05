@@ -21,7 +21,6 @@ import Profile from './Menus/Profiles'
 function AppBar() {
   return (
     <Box sx={{
-      backgroundColor:'#fff',
       height: (theme) => theme.trello.appBarHeight,
       width: '100%',
       display: 'flex',
@@ -31,8 +30,8 @@ function AppBar() {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: 'primary.main', fontSize:28 }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <SvgIcon component={TrelloIcon} inheritViewBox sx={{ color:'primary.main' }} />
-          <Typography sx={{ color:'primary.main' }}>Trello</Typography>
+          <SvgIcon component={TrelloIcon} inheritViewBox sx={{ color:'primary.main', fontSize:24 }} />
+          <Typography sx={{ color:'primary.main', fontWeight:'bold', fontSize:'1.2rem' }}>Trello</Typography>
         </Box>
         <Workspaces />
         <Recent />
@@ -40,8 +39,8 @@ function AppBar() {
         <Template />
         <Create/>
       </Box>
-      <Box sx={{ display: 'flex', gap: 2, alignItems:'center' }}>
-        <TextField id="outlined-search" label="Search ..." type="search" size='small' sx={{ width:'250px', color:'primary.main' }} />
+      <Box sx={{ display: 'flex', alignItems:'center', gap: 2 }}>
+        <TextField id="outlined-search" label="Search ..." type="search" size='small' sx={{ width:'250px' }} />
         <ModeSelect sx={{ color: 'primary.main' }} />
         <Badge color="secondary" variant="dot">
           <Tooltip title="Notifications" >
