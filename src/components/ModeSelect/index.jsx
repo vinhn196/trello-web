@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -18,9 +17,9 @@ function ModeSelect() {
   }
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth sx={{ marginTop:'3px' }}>
-        <InputLabel id="light-dark-select-mode">Mode</InputLabel>
+    <Box sx={{ minWidth: 120, color:'primary.main' }}>
+      <FormControl fullWidth >
+        <InputLabel id="light-dark-select-mode" sx={{ color:'primary.main' }}>Mode</InputLabel>
         <Select
           labelId="light-dark-select-mode"
           id="select-light-dark"
@@ -31,7 +30,8 @@ function ModeSelect() {
             width: '120px',
             '& .MuiOutlinedInput-input': {
               padding:'8px 5px'
-            }
+            },
+            color:'primary.main'
             // '& .MuiOutlinedInput-input': {
             //   display: 'flex',
             //   alignItems: 'center',
@@ -39,7 +39,7 @@ function ModeSelect() {
             // }
           }}
         >
-          <MenuItem value='light' >
+          <MenuItem value='light'sx={{ color:'primary.main' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <LightModeIcon fontSize='small' />
               Light
