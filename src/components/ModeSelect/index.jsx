@@ -17,49 +17,48 @@ function ModeSelect() {
   }
 
   return (
-    <Box sx={{ minWidth: 120, color:'primary.main' }}>
-      <FormControl fullWidth >
-        <InputLabel id="light-dark-select-mode" sx={{ color:'primary.main' }}>Mode</InputLabel>
-        <Select
-          labelId="light-dark-select-mode"
-          id="select-light-dark"
-          value={mode}
-          label="Mode"
-          onChange={handleChange}
-          sx={{
-            width: '120px',
-            '& .MuiOutlinedInput-input': {
-              padding:'8px 5px'
-            },
-            color:'primary.main'
-            // '& .MuiOutlinedInput-input': {
-            //   display: 'flex',
-            //   alignItems: 'center',
-            //   gap:1
-            // }
-          }}
-        >
-          <MenuItem value='light'sx={{ color:'primary.main' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <LightModeIcon fontSize='small' />
+    <FormControl size='small'>
+      <InputLabel id="light-dark-select-mode" sx={{ color:'primary.main' }}>Mode</InputLabel>
+      <Select
+        labelId="light-dark-select-mode"
+        id="select-light-dark"
+        value={mode}
+        label="Mode"
+        onChange={handleChange}
+        sx={{
+          width: '120px',
+          '& .MuiOutlinedInput-input': {
+            padding: '8px 5px'
+          },
+          color:'primary.main'
+          // '& .MuiOutlinedInput-input': {
+          //   display: 'flex',
+          //   alignItems: 'center',
+          //   gap:1
+          // }
+        }}
+      >
+        <MenuItem value='light'sx={{ color:'primary.main' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <LightModeIcon fontSize='small' />
               Light
-            </Box>
-          </MenuItem>
-          <MenuItem value='dark' >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <DarkModeOutlinedIcon fontSize='small' />
+          </Box>
+        </MenuItem>
+        <MenuItem value='dark' >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <DarkModeOutlinedIcon fontSize='small' />
               Dark
-            </Box>
-          </MenuItem>
-          <MenuItem value='system' >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <SettingsBrightnessIcon fontSize='small'/>
+          </Box>
+        </MenuItem>
+        <MenuItem value='system' >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <SettingsBrightnessIcon fontSize='small' />
               System
-            </Box>
-          </MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+          </Box>
+        </MenuItem>
+      </Select>
+    </FormControl>
+
   )
 }
 
