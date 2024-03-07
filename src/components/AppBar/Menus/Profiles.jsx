@@ -33,7 +33,7 @@ export default function Profile() {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar
-              sx={{ width: 32, height: 32 }}
+              sx={{ width: 34, height: 34 }}
               alt="vinhnguyen"
               src="https://cdn-icons-png.flaticon.com/512/3541/3541871.png"
             />
