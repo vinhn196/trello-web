@@ -10,22 +10,23 @@ import Workspaces from './Menus/Workspaces'
 import Recent from './Menus/Recent'
 import Template from './Menus/Templates'
 import Starred from './Menus/Starred'
-import Create from './Menus/Create'
 import TextField from '@mui/material/TextField'
 import Badge from '@mui/material/Badge'
 import Tooltip from '@mui/material/Tooltip'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import Profile from './Menus/Profiles'
+import Button from '@mui/material/Button'
 
 function AppBar() {
   return (
-    <Box sx={{
+    <Box px={2} sx={{
       height: (theme) => theme.trello.appBarHeight,
       width: '100%',
       display: 'flex',
       alignItems: 'center',
-      justifyContent:'space-between'
+      justifyContent: 'space-between',
+      overflowX: 'auto'
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: 'primary.main', fontSize:28 }} />
@@ -33,14 +34,16 @@ function AppBar() {
           <SvgIcon component={TrelloIcon} inheritViewBox sx={{ color:'primary.main', fontSize:24 }} />
           <Typography sx={{ color:'primary.main', fontWeight:'bold', fontSize:'1.2rem' }}>Trello</Typography>
         </Box>
-        <Workspaces />
-        <Recent />
-        <Starred/>
-        <Template />
-        <Create/>
+        <Box sx={{ display: { xs:'none', md:'flex' }, alignItems: 'center', gap: 0.5 }}>
+          <Workspaces />
+          <Recent />
+          <Starred/>
+          <Template />
+          <Button variant='outlined'>Create</Button>
+        </Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems:'center', gap: 2 }}>
-        <TextField id="outlined-search" label="Search ..." type="search" size='small' sx={{ width:'250px' }} />
+        <TextField id="outlined-search" label="Search ..." type="search" size='small' sx={{ minWidth:'120px' }} />
         <ModeSelect sx={{ color: 'primary.main' }} />
         <Badge color="secondary" variant="dot">
           <Tooltip title="Notifications" >
