@@ -32,6 +32,7 @@ function BoardBar() {
       display: 'flex',
       justifyContent: 'space-between',
       overflowX: 'auto',
+      '&::-webkit-scrollbar-track': { m:1 },
       // borderTop: '1px solid #00bfa5',
       paddingX: 2,
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2'),
@@ -41,7 +42,7 @@ function BoardBar() {
         <Chip
           sx={MENU_STYLE }
           icon={<DashboardIcon />}
-          label="vinhnguyendev board"
+          label="VinhNguyenDev Board"
           clickable
         />
         <Chip
@@ -90,7 +91,9 @@ function BoardBar() {
               width: '34px',
               height: '34px',
               fontSize: '16px',
-              border:'none'
+              border: 'none',
+              cursor: 'pointer',
+              '&:first-of-type': { bgcolor:'#a4b0be' }
             }
           }}>
           <Tooltip title='vinhnguyen'>
