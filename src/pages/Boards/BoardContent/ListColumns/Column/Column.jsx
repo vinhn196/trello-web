@@ -31,7 +31,6 @@ function Column() {
   return (
 
     <Box sx={{
-      marginTop:'20px',
       minWidth: '300px',
       maxWidth: '300px',
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
