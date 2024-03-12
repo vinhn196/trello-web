@@ -38,6 +38,12 @@ function BoardContent({ board }) {
   useEffect(() => {
     setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, '_id'))
   }, [board])
+  // Tìm 1 column theo CardId
+  const findColumnByCardId = (cardId) => {
+    //Đoạn này dùng c.cards thay vì c.cardOrderIds vì ở bước handleDragOver chúng ta sẽ làm dữ liệu hoàn chỉnh cho cards trc rồi mới tạo ra cardOrderIds mới
+    return orderedColumns.find(column => column?.cards?.map(card => card._id)?.includes(cardId))
+  }
+
   //Trigger khi bắt đầu kéo 1 phần tử
   const handleDragStart = (event) => {
     console.log('handleDragStart: ', event)
@@ -45,9 +51,45 @@ function BoardContent({ board }) {
     setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
     setActiveDragItemData(event?.active?.data?.current)
   }
+  //Trigger trong quá trình kéo
+  const handleDragOver = (event) => {
+
+    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) return
+    // console.log('handleDragOver ', event)
+
+    const { active, over } = event
+    //Cần đảm bảo ko tồn tại active hoặc over(khi kéo thả ngoài container) thì ko làm gì
+    if (!active || !over) return
+    // activeDraggingCard: là cái card đang được kéo
+    const { id: activeDraggingCardId, data: { current: activeDraggingCardData } } = active
+    // overCard: là cái card đang tương tác trên hoặc dưới so với card được kéo ở trên
+    const { id: overCardId } = over
+    // tìm 2 column theo cardId
+    const activeColumn = findColumnByCardId(activeDraggingCardId)
+    const overColumn = findColumnByCardId(overCardId)
+    // nếu ko tồn tại 1 tỏng 2 column thì ko làm gì hết , tránh crash web
+    if (!activeColumn || !overColumn) return
+
+    if (activeColumn._id !== overColumn._id) {
+      setOrderedColumns(prevColumns => {
+        //Tìm vị trí index của overCard trong Column đích (nơi mà activeCard sắp được thả)
+        const overCardIndex = overCardId?.cards?.findIndex(card => card?._id === overCardId)
+        console.log(' overCardIndex ', overCardIndex)
+
+        return [...prevColumns]
+      })
+
+    }
+  }
+
   //Trigger khi kết thúc hàng động kéo (drag) một phần từ => hành động thả (drop)
   const handleDragEnd = (event) => {
-    // console.log('handleDragEnd: ', event)
+    console.log('handleDragEnd: ', event)
+
+    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) {
+      console.log('Keo tha cacd tam thoi khong thay doi gi')
+    }
+
     const { active, over } = event
     // Kiếm trả nếu ko tồn tại over thì return luôn tránh lỗi
     if (!over) return
@@ -79,8 +121,9 @@ function BoardContent({ board }) {
   return (
     <DndContext
       sensors={sensors}
-      onDragStart = {handleDragStart}
-      onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd = {handleDragEnd}
     >
       <Box sx={{
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2'),
