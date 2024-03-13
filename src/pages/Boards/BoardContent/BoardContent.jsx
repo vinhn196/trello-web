@@ -242,12 +242,14 @@ function BoardContent({ board }) {
     if (activeDragItemType == ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
       return closestCorners({ ...args })
     }
-    //Tìm các điểm giao nhau , va chạm với con trỏ
+    //Tìm các điểm giao nhau , va chạm với con trỏ , trả về 1 mảng va chạm
     const pointerInterSections = pointerWithin(args)
-    //Thuật toán phát hiện va chạm sẽ trả về 1 mảng va chạm ở đây
-    const interSections = pointerInterSections?.length > 0 ? pointerInterSections : rectIntersection(args)
+    console.log('pointerInterSections', pointerInterSections)
+    if (!pointerInterSections?.length) return
+    // //Thuật toán phát hiện va chạm sẽ trả về 1 mảng va chạm ở đây (không cần bước này nữa)
+    // const interSections = pointerInterSections?.length > 0 ? pointerInterSections : rectIntersection(args)
     //Tìm overId đầu tiên trong interSection trên
-    let overId = getFirstCollision(interSections, 'id')
+    let overId = getFirstCollision(pointerInterSections, 'id')
     console.log('overId', overId)
     if (overId) {
       //
