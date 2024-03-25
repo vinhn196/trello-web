@@ -17,7 +17,7 @@ import {
   getFirstCollision
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
-import { useEffect, useState ,useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { cloneDeep, intersection, isEmpty } from 'lodash'
 import { generatePlaceholderCard } from '~/utils/formatters'
 
