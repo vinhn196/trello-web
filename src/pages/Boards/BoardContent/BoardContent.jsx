@@ -3,9 +3,9 @@ import ListColumns from './ListColumns/ListColumns'
 import { mapOrder } from '~/utils/sorts'
 import {
   DndContext,
-  PointerSensor,
-  MouseSensor,
-  TouchSensor,
+  // PointerSensor,
+  // MouseSensor,
+  // TouchSensor,
   useSensor,
   useSensors,
   DragOverlay,
@@ -16,6 +16,8 @@ import {
   // closestCenter,
   getFirstCollision
 } from '@dnd-kit/core'
+
+import { MouseSensor, TouchSensor } from '~/customLibraries/DndKitSensors'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { cloneDeep, intersection, isEmpty } from 'lodash'
@@ -29,13 +31,13 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
 
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn, createNewCard }) {
   // https://docs.dndkit.com/api-documentation/sensors
   // const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
-  const pointerSensor = useSensor(PointerSensor, { activationConstraint:{ distance: 10 } })
-  const mouseSensor = useSensor(MouseSensor, { activationConstraint:{ distance: 10 } })
-  const touchSensor = useSensor(TouchSensor, { activationConstraint:{ delay: 500, tolerance: 500 } })
-  const sensors = useSensors(pointerSensor, mouseSensor, touchSensor)
+  // const pointerSensor = useSensor(PointerSensor, { activationConstraint:{ distance: 10 } })
+  const mouseSensor = useSensor( MouseSensor, { activationConstraint:{ distance: 10 } })
+  const touchSensor = useSensor( TouchSensor, { activationConstraint:{ delay: 250, tolerance: 500 } })
+  const sensors = useSensors( mouseSensor, touchSensor )
 
   const [orderedColumns, setOrderedColumns] = useState([])
   // Cùng một thời điểm chỉ có 1 phần tử được kéo
@@ -263,7 +265,7 @@ function BoardContent({ board }) {
     let overId = getFirstCollision(pointerInterSections, 'id')
     if (overId) {
       //
-      const checkColumn = orderedColumns.find(c => c._id === overId)
+      const checkColumn = orderedColumns.find(column => column._id === overId)
       if (checkColumn) {
         // console.log('overId before', overId)
         overId = closestCorners({
@@ -281,7 +283,7 @@ function BoardContent({ board }) {
 
     //Nếu overId là null thì trả về mảng rỗng tránh crash web
     return lastOverId.current ? [{ id:lastOverId.current }] : []
-  }, [activeDragItemType])
+  }, [activeDragItemType, orderedColumns])
 
 
   return (

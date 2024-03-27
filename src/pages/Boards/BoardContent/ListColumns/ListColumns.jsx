@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import Box from '@mui/material/Box'
 import Column from './Column/Column'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
@@ -17,7 +18,7 @@ function ListColumns({ columns }) {
 
   const addNewColumn = () => {
     if (!newColumnTitle) {
-      console.error('Please enter Column Title!')
+      toast.error('Please enter Column Title!')
       return
     }
     console.log(newColumnTitle)
@@ -86,6 +87,7 @@ function ListColumns({ columns }) {
               size='small'
               variant='outlined'
               autoFocus
+              data-no-dnd= "true"
               value={newColumnTitle}
               onChange={(e) => setNewColumnTitle(e.target.value)}
               sx={{
@@ -107,7 +109,7 @@ function ListColumns({ columns }) {
             >
               <Button
                 onClick={addNewColumn }
-                variant= 'contained' color='success' size='small'
+                variant='contained' color='success' size='small'
                 sx={{
                   boxShadow: 'none',
                   border: '0.5px solid',
