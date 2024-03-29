@@ -31,7 +31,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
 
-function BoardContent({ board, createNewColumn, createNewCard }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   // https://docs.dndkit.com/api-documentation/sensors
   // const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
   // const pointerSensor = useSensor(PointerSensor, { activationConstraint:{ distance: 10 } })
@@ -232,6 +232,9 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
         // console.log(dndOrderedColumns)
         // console.log(dndOrderedColumnsIds)
 
+        moveColumns(dndOrderedColumns)
+
+        //Cập nhập lại state column sau khi kéo thả
         setOrderedColumns(dndOrderedColumns)
       }
     }
