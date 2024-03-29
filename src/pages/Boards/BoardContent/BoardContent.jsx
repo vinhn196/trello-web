@@ -305,7 +305,11 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
         height: (theme) => theme.trello.boardContentHeight,
         p:'5px 0'
       }}>
-        <ListColumns columns={orderedColumns} />
+        <ListColumns
+          columns={orderedColumns}
+          createNewColumn={createNewColumn}
+          createNewCard={createNewCard}
+        />
 
         <DragOverlay dropAnimation={customDropAnimation}>
           {!activeDragItemType && null}

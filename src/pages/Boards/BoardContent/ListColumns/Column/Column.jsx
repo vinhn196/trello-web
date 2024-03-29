@@ -25,7 +25,7 @@ import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
@@ -57,12 +57,20 @@ function Column({ column }) {
 
   const [newCardTitle, setNewCardTitle] = React.useState('')
 
-  const addNewCard = () => {
+  const addNewCard = async () => {
     if (!newCardTitle) {
       toast.error('Please Enter Card Title', { position:'bottom-right'})
       return
     }
-    console.log(newCardTitle)
+    // console.log(newCardTitle)
+    // Tạo dữ liệu Card để tạo API
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+    //Gọi API ở đây
+    await createNewCard( newCardData )
+
     toggleOpenNewCardForm()
     setNewCardTitle('')
   }
