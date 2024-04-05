@@ -36,7 +36,8 @@ function BoardContent({
   createNewCard,
   moveColumns,
   moveCardInTheSameColumn,
-  moveCardToDifferentColumn
+  moveCardToDifferentColumn,
+  deleteColumnDetails
 }) {
   // https://docs.dndkit.com/api-documentation/sensors
   // const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
@@ -324,6 +325,7 @@ function BoardContent({
           columns={orderedColumns}
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
+          deleteColumnDetails={deleteColumnDetails}
         />
 
         <DragOverlay dropAnimation={customDropAnimation}>
