@@ -10,13 +10,15 @@ import {
   createNewCardAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
-  moveCardToDifferentColumnAPI
+  moveCardToDifferentColumnAPI,
+  deleteColumnDetailsAPI
 } from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { isEmpty } from 'lodash'
 import { mapOrder } from '~/utils/sorts'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import { toast } from 'react-toastify'
 
 function Board() {
   const [board, setBoard] = useState(null)
@@ -70,11 +72,9 @@ function Board() {
     if (columnToUpdate) {
       //Nếu Column rỗng( là đang chứa placeholdcard)
       if (columnToUpdate.cards.some(card => card.FE_PlaceholderCard)) {
-        console.log('code vào if')
         columnToUpdate.cards = [createdCard]
         columnToUpdate.cardOrderIds = [createdCard._id]
       } else {
-        console.log('code vào else')
         //Nếu Column đã có data thì push vào cuối mảng
         columnToUpdate.cards.push(createdCard)
         columnToUpdate.cardOrderIds.push(createdCard._id)
@@ -132,6 +132,19 @@ function Board() {
       nextCardOrderIds: dndOrderedColumns.find(c => c._id === nextColumnId)?.cardOrderIds
     })
   }
+  //Xử lý xóa 1 column và các cards bên trong nó
+  const deleteColumnDetails = (columnId) => {
+    //update cho chuẩn state Board
+    const newBoard = { ...board }
+    newBoard.columns = newBoard.columns.filter(c => c._id !== columnId)
+    newBoard.columnOrderIds = newBoard.columnOrderIds.filter(_id => _id !== columnId)
+    setBoard(newBoard)
+    //Gọi API xử lý phía BE
+    deleteColumnDetailsAPI(columnId).then(res => {
+      toast.success(res?.deleteResult)
+      console.log('🚀 ~ deleteColumnDetailsAPI ~ res:', res)
+    })
+  }
 
   if (!board) {
     return (
@@ -140,6 +153,7 @@ function Board() {
       </Box>
     )
   }
+
 
   return (
     <Container disableGutters maxWidth={ false } sx={{ height:'100vh' }}>
@@ -153,6 +167,7 @@ function Board() {
         updateBoardDetailsAPI={updateBoardDetailsAPI}
         moveCardInTheSameColumn={moveCardInTheSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
+        deleteColumnDetails={deleteColumnDetails}
       />
     </Container>
   )
