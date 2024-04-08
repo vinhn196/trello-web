@@ -68,7 +68,7 @@ export const mockData = {
             FE_PlaceholderCard : true
           }
         ]
-      },
+      }
     ]
   }
 }
